@@ -4,7 +4,6 @@ import os
 from sys import argv
 
 # Configure youtube_dl library options
-
 download_options = {
     'format': 'bestaudio/best',
     'outtmpl': '%(title)s.%(ext)s',
