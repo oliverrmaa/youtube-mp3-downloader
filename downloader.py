@@ -17,7 +17,7 @@ download_options = {
 }
 
 
-# If song directory does not exist, create song director
+# If song directory does not exist, create song directory
 if not os.path.exists('Songs'):
     os.mkdir('Songs')
     os.chdir('Songs')
