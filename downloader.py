@@ -17,7 +17,7 @@ download_options = {
 }
 
 
-# If song directory does not exist, create song director 
+# If song directory does not exist, create song director
 if not os.path.exists('Songs'):
     os.mkdir('Songs')
     os.chdir('Songs')
@@ -26,12 +26,19 @@ else:
 
 # If song download queue list does not exist, create queue list
 if not os.path.exists('./queue.txt'):
+    print("First run, creating empty queue list")
     open('./queue.txt', 'a').close()
+    queue_list = list()
 else:
     with open('./queue.txt') as q:
         queue_list = q.readlines()
-        
-# Download songs in queue 
-for song in queue_list:
-    with youtube_dl.YoutubeDL(download_options) as ydl:
-        ydl.download([song])
+
+
+# Download songs in queue
+if not len(queue_list)==0:
+    for idx, song in enumerate(queue_list):
+        print("Now downloading song {} / {}".format(idx+1, len(queue_list)))
+        with youtube_dl.YoutubeDL(download_options) as ydl:
+            ydl.download([song])
+else:
+    print("No songs in the queue")
