@@ -32,7 +32,6 @@ else:
     with open('./queue.txt') as q:
         queue_list = q.readlines()
 
-
 # Download songs in queue
 if not len(queue_list)==0:
     for idx, song in enumerate(queue_list):
@@ -41,3 +40,8 @@ if not len(queue_list)==0:
             ydl.download([song])
 else:
     print("No songs in the queue")
+
+# Clear the queue list for use on the next run
+print("Now erasing the queue list for reuse on next run")
+q = open('./queue.txt', 'w')
+q.close()
