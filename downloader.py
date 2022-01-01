@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 import youtube_dl
 import os
-from sys import argv
+import sys
 
 # Configure youtube_dl library options
 download_options = {
@@ -12,7 +12,7 @@ download_options = {
         'key': 'FFmpegExtractAudio',
         'preferredcodec': 'mp3',
         'preferredquality': '192',
-    }],
+    }]
 }
 
 def create_songs_dir(songs_dir):
@@ -55,26 +55,42 @@ def download_songs(queue_list, download_options=download_options):
     else:
         print("No songs in the queue")
 
-
 if __name__ == '__main__':
 
     # Create necessary paths
     cwd = os.getcwd()
-    songs_dir = cwd + '/Songs/'
+    default_songs_dir = cwd + '/Songs/'
     queue_list_path = cwd + '/queue.txt'
 
-    if argv[1] == "open-queue":
-        open_queue(queue_list_path)
-    else:
-        # Run functions
-        create_songs_dir(songs_dir)
-        queue_list = create_queue(queue_list_path)
-        download_songs(queue_list)
-        # Clear the queue list for use on the next run
-        print("Now erasing the queue list for reuse on next run")
-        q = open(queue_list_path, 'w')
-        q.close()
+    # Different behaviour based on sys.argv passed in by user
+    try:
+        if sys.argv[1] == "open-queue":
+            open_queue(queue_list_path)
+            sys.exit()
 
-    # Return to the starting directory
-    path_parent = os.path.dirname(os.getcwd())
-    os.chdir(path_parent)
+        if len(sys.argv) >= 3 and sys.argv[1] == "run":
+            songs_dir = sys.argv[2]
+        elif len(sys.argv) < 3 and sys.argv[1] == "run":
+            songs_dir = default_songs_dir
+            create_songs_dir(songs_dir)
+        else:
+            print("No such option. Please try again")
+            sys.exit()
+
+        # Begin downloading procedure
+        os.chdir(songs_dir)
+        queue_list = create_queue(queue_list_path)
+        try:
+            download_songs(queue_list)
+        finally:
+            # Clear the queue list for use on the next run
+            print("Now erasing the queue list for reuse on next run")
+            q = open(queue_list_path, 'w')
+            q.close()
+
+            # Return to the starting directory
+            path_parent = os.path.dirname(os.getcwd())
+            os.chdir(path_parent)
+
+    except IndexError:
+        print("No options were provided. Please try again")
