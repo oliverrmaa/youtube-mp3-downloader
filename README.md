@@ -2,8 +2,9 @@
 
 ## Introduction:
 
-This repo utilizes the `youtube_dl` library to download songs from youtube in
-bulk.
+This repo contains a simple script wrapping around the `youtube_dl` library
+making it an easy to use command line interface tool to download songs from
+youtube in bulk. 
 
 ## Installation:
 
