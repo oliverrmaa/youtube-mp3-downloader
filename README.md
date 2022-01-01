@@ -20,8 +20,8 @@ which case, please use `brew install ffmpeg`.
 
 ## Instructions:
 
-To utilize this program open the command line and run the following
-commands, first `cd youtube-mp3-downloader`.
+To utilize this program open the command line and first 
+`cd youtube-mp3-downloader`.
 
 - Run the following which will open an empty `queue.txt` file in your 
 default text editor. 
