@@ -15,8 +15,20 @@ cd youtube-mp3-downloader
 pip install -r requirements.txt
 ```
 
-If you are a mac user, it is possible further dependencies may be needed in
-which case, please use `brew install ffmpeg`.
+If you are a mac user, it is possible further dependencies may be needed or
+the necessary dependencies may not be properly in place. The main dependency
+that has been found to cause issues is `ffmpeg`. The following commands
+ensure this dependency is installed, updated, and running properly on your 
+local mac machine (and makes sure your package manager `brew` is updated!).
+
+```
+brew uninstall ffmpeg
+brew update
+brew upgrade
+brew cleanup
+brew install ffmpeg --force
+brew link ffmpeg
+```
 
 ## Instructions:
 
